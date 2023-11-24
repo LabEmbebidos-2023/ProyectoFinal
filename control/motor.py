@@ -43,7 +43,12 @@ class Motor:
         self.last_distance = current_distance
 
     def encoder_interrupt(self, channel):
-        self.encoder_count += math.copysign(1, self.last_set)
+        #self.encoder_count += math.copysign(1, self.last_set)
+        if self.last_set > 0:
+            self.encoder_count += 1
+        else:
+            self.encoder_count -= 1
+        print(self.last_set)
 
     def get_distance(self):
         revs = self.encoder_count / CODES_PER_REV
@@ -52,7 +57,7 @@ class Motor:
 
     def set(self, percent_out):
         motor_out = abs(max(-1.0, min(percent_out, 1.0)))
-        self.last_set = motor_out
+        self.last_set = percent_out
 
         if percent_out > 0.0:
             self.forward_pwm.ChangeDutyCycle(motor_out * 100.0)

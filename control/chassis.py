@@ -43,7 +43,6 @@ class Chassis:
             time.sleep(0.1)
             calibrationTimeElapsed = time.time() - calibrationStartTime
         print("Done calibrating")
-        print("Done asdasdsafa")
 
         self.gyroCalibration[0] /= calibrationDataCount
         self.gyroCalibration[1] /= calibrationDataCount
